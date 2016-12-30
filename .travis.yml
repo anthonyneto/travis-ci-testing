@@ -1,0 +1,21 @@
+sudo: required
+dist: trusty
+
+# install the pre-release chef-dk.  Use chef-stable-trusty to install the stable release
+addons:
+  apt:
+    sources:
+      - chef-stable-trusty
+    packages:
+      - chefdk
+
+install: echo "skip bundle install"
+
+services: docker
+
+before_script:
+  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+script:
+  - /opt/chefdk/embedded/bin/chef --version
+  - /opt/chefdk/embedded/bin/cookstyle --version
+  - /opt/chefdk/embedded/bin/cookstyle
